@@ -45,7 +45,7 @@ export default function Header() {
           </ul>
         </nav>
       </div>
-      <div className="hidden xl:flex items-center">
+      <div className="hidden xl:flex items-center mr-5">
         <ButtonGoogle>Comenzar gratis</ButtonGoogle>
       </div>
     </header>
