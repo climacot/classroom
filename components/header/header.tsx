@@ -1,5 +1,5 @@
 import Link from "next/link";
-import ButtonGoogle from "../buttons/google";
+import LinkGoogle from "../buttons/google";
 import Google from "../logos/google";
 
 const items = [
@@ -46,7 +46,7 @@ export default function Header() {
         </nav>
       </div>
       <div className="hidden xl:flex items-center mr-5">
-        <ButtonGoogle>Comenzar gratis</ButtonGoogle>
+        <LinkGoogle>Comenzar gratis</LinkGoogle>
       </div>
     </header>
   );
