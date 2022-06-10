@@ -1,9 +1,11 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import Image from "next/image";
 import Link from "next/link";
 import ButtonGoogle from "../components/buttons/google";
 import Header from "../components/header/header";
 import Google from "../components/logos/google";
+import classroom from "../public/classroom.svg";
 
 const Home: NextPage = () => {
   return (
@@ -23,15 +25,21 @@ const Home: NextPage = () => {
           <Header />
         </div>
         <section className="container mx-auto 2xl:px-28 px-4">
-          <div className="grid sm:grid-cols-2">
-            <div className="pt-52 lg:px-20">
-              <h1 className="text-4xl sm:text-5xl md:text-5xl 2xl:text-6xl font-semibold">Productos que potencian la educación</h1>
+          <div className="sm:grid sm:grid-cols-2 flex flex-col-reverse">
+            <div className="pt-11 lg:pt-36 lg:px-20">
+              <Image src={classroom} alt="logo de classroom" />
+              <h1 className="text-4xl sm:text-5xl md:text-5xl 2xl:text-6xl font-semibold">
+                Productos que potencian la educación
+              </h1>
               <p className="mt-6 text-xl">
                 Las herramientas de Google for Education funcionan en conjunto para transformar la enseñanza y el
                 aprendizaje, de manera que cada alumno y educador puedan desarrollar su potencial personal.
               </p>
-              <div className="flex mt-12">
+              <div className="hidden md:flex mt-12">
                 <ButtonGoogle>Comienza a usar Google Workspace for Education</ButtonGoogle>
+              </div>
+              <div className="flex md:hidden mt-12">
+                <ButtonGoogle>Comienza</ButtonGoogle>
               </div>
             </div>
             <div className="flex justify-center w-full px-4">
