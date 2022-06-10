@@ -3,8 +3,10 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import ButtonGoogle from "../components/buttons/google";
+import LoginButtonGoogle from "../components/buttons/login";
 import Header from "../components/header/header";
 import Google from "../components/logos/google";
+import { signInWithPopupFirebase } from "../firebase/auth";
 import classroom from "../public/classroom.svg";
 
 const Home: NextPage = () => {
@@ -36,10 +38,10 @@ const Home: NextPage = () => {
                 aprendizaje, de manera que cada alumno y educador puedan desarrollar su potencial personal.
               </p>
               <div className="hidden md:flex mt-12">
-                <ButtonGoogle>Comienza a usar Google Workspace for Education</ButtonGoogle>
+                <LoginButtonGoogle>Comienza a usar Google Workspace for Education</LoginButtonGoogle>
               </div>
               <div className="flex md:hidden mt-12">
-                <ButtonGoogle>Comienza</ButtonGoogle>
+                <LoginButtonGoogle>Comienza</LoginButtonGoogle>
               </div>
             </div>
             <div className="flex justify-center w-full px-4">
@@ -52,7 +54,7 @@ const Home: NextPage = () => {
               >
                 <source src="/video.mp4" type="video/mp4"></source>
               </video>
-            </div>
+            </div>            
           </div>
         </section>
       </div>
