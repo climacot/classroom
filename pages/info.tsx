@@ -22,26 +22,24 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <div>
-        <div>
-          <Header>
-            <div className='flex flex-wrap items-center justify-between w-full'>
-              <Link href={'/'}>
-                <a className='h-16 flex items-center justify-center flex-wrap ml-4 min-h-0'>
-                  <div className='w-20'>
-                    <Google />
-                  </div>
-                  <p className='text-2xl ml-2 text-gray-500 mb-2'>for Education</p>
-                </a>
-              </Link>
-              <div className='grow justify-start ml-0 lg:ml-10'>
-                <Nav />
-              </div>
-              <div className='hidden xl:flex items-center mr-5'>
-                <LinkGoogle>Comenzar gratis</LinkGoogle>
-              </div>
+        <Header>
+          <div className='flex flex-wrap items-center justify-between w-full'>
+            <Link href={'/'}>
+              <a className='h-16 flex items-center justify-center flex-wrap ml-4 min-h-0'>
+                <div className='w-20'>
+                  <Google />
+                </div>
+                <p className='text-2xl ml-2 text-gray-500 mb-2'>for Education</p>
+              </a>
+            </Link>
+            <div className='grow justify-start ml-0 lg:ml-10'>
+              <Nav />
             </div>
-          </Header>
-        </div>
+            <div className='hidden xl:flex items-center mr-5'>
+              <LinkGoogle>Comenzar gratis</LinkGoogle>
+            </div>
+          </div>
+        </Header>
         <section className='container mx-auto 2xl:px-28 px-4'>
           <div className='sm:grid sm:grid-cols-2 flex flex-col-reverse'>
             <div className='pt-11 lg:pt-36 lg:px-20'>

@@ -1,6 +1,6 @@
 import { getSession, signIn } from 'next-auth/react'
-import { useEffect } from 'react'
 import { NextPageContext } from 'next'
+import { useEffect } from 'react'
 
 export default function RedirectPage() {
   useEffect(() => {
@@ -18,7 +18,7 @@ export async function getServerSideProps(context: NextPageContext) {
       redirect: {
         origin: 'info',
         destination: '/',
-        permanent: false
+        permanent: true
       }
     }
   }
