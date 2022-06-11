@@ -6,12 +6,14 @@ export const userInit = {
     email: undefined,
     photoUrl: undefined,
   },
+  userIsLoggedIn: false,
   login: () => {},
   signOut: () => {},
 };
 
 export interface IuserContext {
   user: Iuser | undefined;
+  userIsLoggedIn: boolean;
   login: () => void;
   signOut: () => void;
 }
