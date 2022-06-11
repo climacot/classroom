@@ -1,8 +1,8 @@
+import { auth } from "../firebase";
+import { AuthContext, Iuser, userInit } from "../context/AuthContext";
 import { onAuthStateChanged } from "firebase/auth";
 import { ReactNode, useEffect, useState } from "react";
-import { AuthContext, Iuser, userInit } from "../context/AuthContext";
-import { auth } from "../firebase";
-import { signInWithPopupFirebase } from "../firebase/auth";
+import { signInWithPopupFirebase, signOutFirebase } from "../firebase/auth";
 
 type ComponentProps = {
   children: ReactNode;
@@ -13,7 +13,18 @@ export default function AuthProvider({ children }: ComponentProps) {
 
   useEffect(() => {
     const unsuscribe = onAuthStateChanged(auth, function (user) {
-      console.log(user);
+      if (!user) {
+        setUser(undefined);
+        return;
+      }
+
+      const decorateUser = {
+        displayName: user?.displayName,
+        email: user?.email,
+        photoUrl: user?.photoURL,
+      };
+
+      setUser(decorateUser);
     });
 
     return () => unsuscribe();
@@ -28,13 +39,13 @@ export default function AuthProvider({ children }: ComponentProps) {
     };
     setUser(decorateUser);
     window.localStorage.setItem("session", JSON.stringify(decorateUser));
-    console.log(userLogin);
   };
 
-  const signOut = () => {
-    const userLogin = signInWithPopupFirebase();
-    console.log(userLogin);
+  const signOut = async () => {
+    await signOutFirebase();
   };
 
-  return <AuthContext.Provider value={{ user, login, signOut }}>{children}</AuthContext.Provider>;
+  const userIsLoggedIn = user ? true : false;
+
+  return <AuthContext.Provider value={{ user, login, signOut, userIsLoggedIn }}>{children}</AuthContext.Provider>;
 }
