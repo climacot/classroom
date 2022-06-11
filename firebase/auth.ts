@@ -1,4 +1,4 @@
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
 import { auth, provider } from "../firebase";
 
 export const signInWithPopupFirebase = () => {
@@ -23,4 +23,9 @@ export const signInWithPopupFirebase = () => {
       // ...
       return undefined;
     });
+};
+
+export const signOutFirebase = () => {
+  console.log('dd')
+  return signOut(auth);
 };
