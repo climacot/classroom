@@ -1,9 +1,12 @@
 import classroom from '../public/classroom.svg'
+import Google from '../components/logos/google'
 import Head from 'next/head'
 import Header from '../components/header/header'
 import Image from 'next/image'
 import InitialVideo from '../components/videos/initialVideo'
 import Link from 'next/link'
+import LinkGoogle from '../components/buttons/google'
+import Nav from '../components/header/nav'
 
 export default function Home() {
   return (
@@ -20,7 +23,24 @@ export default function Home() {
       </Head>
       <div>
         <div>
-          <Header />
+          <Header>
+            <div className='flex flex-wrap items-center justify-between w-full'>
+              <Link href={'/'}>
+                <a className='h-16 flex items-center justify-center flex-wrap ml-4 min-h-0'>
+                  <div className='w-20'>
+                    <Google />
+                  </div>
+                  <p className='text-2xl ml-2 text-gray-500 mb-2'>for Education</p>
+                </a>
+              </Link>
+              <div className='grow justify-start ml-0 lg:ml-10'>
+                <Nav />
+              </div>
+              <div className='hidden xl:flex items-center mr-5'>
+                <LinkGoogle>Comenzar gratis</LinkGoogle>
+              </div>
+            </div>
+          </Header>
         </div>
         <section className='container mx-auto 2xl:px-28 px-4'>
           <div className='sm:grid sm:grid-cols-2 flex flex-col-reverse'>
