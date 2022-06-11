@@ -1,65 +1,34 @@
-import type { NextPage } from "next";
+import { getSession } from "next-auth/react";
+import { NextPageContext } from "next";
 import Head from "next/head";
-import Image from "next/image";
-import Link from "next/link";
-import ButtonGoogle from "../components/buttons/google";
-import LoginButtonGoogle from "../components/buttons/login";
-import Header from "../components/header/header";
-import Google from "../components/logos/google";
-import { signInWithPopupFirebase } from "../firebase/auth";
-import classroom from "../public/classroom.svg";
 
-const Home: NextPage = () => {
+export default function Home() {
   return (
     <div>
       <Head>
-        <title>Classroom</title>
-        <meta
-          name="description"
-          content="Google Classroom es un lugar central donde se unen la enseñanza y el
-                  aprendizaje. Esta herramienta segura y fácil de usar ayuda a los educadores a
-                  administrar, medir y enriquecer las experiencias de aprendizaje."
-        />
+        <title>Clases</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div>
-        <div>
-          <Header />
-        </div>
-        <section className="container mx-auto 2xl:px-28 px-4">
-          <div className="sm:grid sm:grid-cols-2 flex flex-col-reverse">
-            <div className="pt-11 lg:pt-36 lg:px-20">
-              <Image src={classroom} alt="logo de classroom" />
-              <h1 className="text-4xl sm:text-5xl md:text-5xl 2xl:text-6xl font-semibold">
-                Productos que potencian la educación
-              </h1>
-              <p className="mt-6 text-xl">
-                Las herramientas de Google for Education funcionan en conjunto para transformar la enseñanza y el
-                aprendizaje, de manera que cada alumno y educador puedan desarrollar su potencial personal.
-              </p>
-              <div className="hidden md:flex mt-12">
-                <LoginButtonGoogle>Comienza a usar Google Workspace for Education</LoginButtonGoogle>
-              </div>
-              <div className="flex md:hidden mt-12">
-                <LoginButtonGoogle>Comienza</LoginButtonGoogle>
-              </div>
-            </div>
-            <div className="flex justify-center w-full px-4">
-              <video
-                playsInline
-                muted
-                autoPlay
-                preload="none"
-                poster="https://lh3.googleusercontent.com/lBADbh94j0z0i726I2sunyOm8lWjkB1RjTYG3K0Qq4fP0i-ET8_wJT3iH9iAUlI98m5mqCT512NSs-0reWI6fBb53xcdALbl69sD45czZo0QlP0wvQ"
-              >
-                <source src="/video.mp4" type="video/mp4"></source>
-              </video>
-            </div>            
-          </div>
-        </section>
-      </div>
+      <div>Classroom</div>
     </div>
   );
-};
+}
 
-export default Home;
+export async function getServerSideProps(context: NextPageContext) {
+  const session = await getSession(context);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/info",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      session,
+    },
+  };
+}
