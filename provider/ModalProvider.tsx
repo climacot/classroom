@@ -6,8 +6,8 @@ type ComponentProps = {
 }
 
 export default function ModalProvider({ children }: ComponentProps) {
-  const [openModalInfo, setOpenModalInfo] = useState(true)
-  const [openModalCreate, setOpenModalCreate] = useState(true)
+  const [openModalInfo, setOpenModalInfo] = useState(false)
+  const [openModalCreate, setOpenModalCreate] = useState(false)
 
   const handleModalInfo = () => setOpenModalInfo(!openModalInfo)
   const handleModalCreate = () => setOpenModalCreate(!openModalCreate)
