@@ -1,11 +1,13 @@
 import { ReactNode, useState } from 'react'
+import { createCourse } from '../../firebase/courses'
 import useModal from '../../hooks/useModal'
 
 type ComponentProps = {
   children: ReactNode
+  owner: string
 }
 
-export default function MainContainer({ children }: ComponentProps) {
+export default function MainContainer({ children, owner }: ComponentProps) {
   const { openModalCreate, handleModalCreate, openModalInfo, handleModalInfo } = useModal()
   const [check, setCheck] = useState(false)
   const [name, setName] = useState('')
@@ -14,6 +16,17 @@ export default function MainContainer({ children }: ComponentProps) {
     setCheck(false)
     handleModalInfo()
     handleModalCreate()
+  }
+
+  const handleCreate = () => {
+    setName('')
+    createCourse(
+      {
+        name,
+        owner
+      },
+      handleModalCreate
+    )
   }
 
   return (
@@ -44,7 +57,7 @@ export default function MainContainer({ children }: ComponentProps) {
                   className={`font-medium p-2 ${
                     !(name.length > 0) ? 'text-gray-400' : 'hover:bg-gray-100 rounded text-blue-500'
                   }`}
-                  onClick={handleModalCreate}
+                  onClick={handleCreate}
                 >
                   Crear
                 </button>
