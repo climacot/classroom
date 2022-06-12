@@ -16,7 +16,7 @@ export default function SignOutButtonGoogle({ image, name, email }: ComponentPro
   return (
     <>
       <button onClick={handleClick}>
-        <div className='flex items-center'>
+        <div className='flex items-center hover:bg-gray-200 p-1 rounded-full'>
           <Image className='rounded-full' width={32} height={32} src={image} />
         </div>
       </button>
