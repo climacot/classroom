@@ -1,12 +1,17 @@
-import '../styles/globals.css'
 import { SessionProvider } from 'next-auth/react'
+import ModalProvider from '../provider/ModalProvider'
 import type { AppProps } from 'next/app'
+import '../styles/globals.css'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <SessionProvider session={pageProps.session} refetchInterval={0}>
-      <Component {...pageProps} />
-    </SessionProvider>
+    <div>
+      <SessionProvider session={pageProps.session} refetchInterval={0}>
+        <ModalProvider>
+          <Component {...pageProps} />
+        </ModalProvider>
+      </SessionProvider>
+    </div>
   )
 }
 
