@@ -1,6 +1,5 @@
+import { AuthAction, getFirebaseAdmin, withAuthUser, withAuthUserTokenSSR } from 'next-firebase-auth'
 import { getCourses, Icourse } from '../firebase/courses'
-import { getSession } from 'next-auth/react'
-import { NextPageContext } from 'next'
 import Google from '../components/logos/google'
 import Head from 'next/head'
 import Header from '../components/header/header'
@@ -8,6 +7,9 @@ import Link from 'next/link'
 import MainContainer from '../components/layout/main'
 import Menu from '../components/buttons/menu'
 import SignOutButtonGoogle from '../components/buttons/signOut'
+import { FC } from 'react'
+import { signInWithCustomToken } from 'firebase/auth'
+import { auth } from '../firebase'
 
 type ComponentProps = {
   image: string
@@ -17,14 +19,14 @@ type ComponentProps = {
   courses: Icourse[]
 }
 
-export default function Home({ image, email, name, owner, courses }: ComponentProps) {
+const Home: FC<ComponentProps> = ({ image, email, name, owner, courses }) => {
   return (
-    <>
+    <div>
       <Head>
         <title>Clases</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <>
+      <div>
         <Header>
           <div className='flex flex-wrap items-center justify-between w-full border-b'>
             <Link href={'/'}>
@@ -66,34 +68,32 @@ export default function Home({ image, email, name, owner, courses }: ComponentPr
             ))}
           </section>
         </MainContainer>
-      </>
-    </>
+      </div>
+    </div>
   )
 }
 
-export async function getServerSideProps(context: NextPageContext) {
-  const session = await getSession(context)
-  const uid = session?.user.uid
+export const getServerSideProps = withAuthUserTokenSSR({
+  whenUnauthed: AuthAction.REDIRECT_TO_LOGIN
+})(async ({ AuthUser }) => {
+  const uid = AuthUser.id
 
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/info',
-        permanent: false
-      }
-    }
-  }
-
+  const admin = getFirebaseAdmin()
+  const token = await admin.auth().createCustomToken(uid)
+  signInWithCustomToken(auth, token)
   const courses = await getCourses({ uid })
 
   return {
     props: {
-      session,
-      image: session.user?.image,
-      name: session.user?.name,
-      email: session.user?.email,
-      owner: session.user?.uid,
+      image: AuthUser.photoURL,
+      name: AuthUser.displayName,
+      email: AuthUser.email,
+      owner: AuthUser.id,
       courses
     }
   }
-}
+})
+
+export default withAuthUser<ComponentProps>({
+  whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN
+})(Home)

@@ -8,12 +8,12 @@ export interface Icourse {
 }
 
 interface IuserPermission {
-  uid: string
+  uid?: string
 }
 
 export const createCourse = async (course: Icourse, callback: () => void) => {
   const { name, owner } = course
-  console.log(name)
+
   try {
     const docRef = await addDoc(collection(db, 'courses'), {
       name,
@@ -33,13 +33,15 @@ export const getCourses = async (permission: IuserPermission) => {
   const querySnapshot = await getDocs(q)
   const arr: Icourse[] = []
   querySnapshot.forEach(doc => {
+    const objetos: Icourse = JSON.parse(JSON.stringify(doc.data()))
+
     const prev = {
       id: doc.id,
-      ...doc.data()
+      name: objetos.name,
+      owner: objetos.owner
     }
+
     arr.push(prev)
-    // doc.data() is never undefined for query doc snapshots
-    // console.log(doc.id, ' => ', doc.data())
   })
   return arr
 }

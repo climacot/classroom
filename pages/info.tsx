@@ -8,7 +8,7 @@ import Link from 'next/link'
 import LinkGoogle from '../components/buttons/google'
 import Nav from '../components/header/nav'
 
-export default function Home() {
+const Info = () => {
   return (
     <div>
       <Head>
@@ -52,14 +52,14 @@ export default function Home() {
                 aprendizaje, de manera que cada alumno y educador puedan desarrollar su potencial personal.
               </p>
               <div className='hidden md:flex mt-12'>
-                <Link href={'/redirect'}>
+                <Link href={'/auth'}>
                   <a className='grow text-center text-lg p-3 text-white bg-blue-500 hover:bg-blue-600 duration-700 rounded-md'>
                     Accede a Classroom
                   </a>
                 </Link>
               </div>
               <div className='flex md:hidden mt-12'>
-                <Link href={'/redirect'}>
+                <Link href={'/auth'}>
                   <a className='grow text-center text-lg p-3 text-white bg-blue-500 hover:bg-blue-600 duration-700 rounded-md'>
                     Accede a Classroom
                   </a>
@@ -76,8 +76,4 @@ export default function Home() {
   )
 }
 
-export async function getStaticProps() {
-  return {
-    props: {}
-  }
-}
+export default Info

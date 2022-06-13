@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { useState } from 'react'
-import { signOut } from 'next-auth/react'
+import { signOutFirebase } from '../../firebase/auth'
 
 type ComponentProps = {
   image: string
@@ -29,7 +29,7 @@ export default function SignOutButtonGoogle({ image, name, email }: ComponentPro
             <p className='font-medium mt-5'>{name}</p>
             <p className='text-gray-500 mb-5'>{email}</p>
           </div>
-          <button className='p-2 border m-5 hover:bg-gray-100' onClick={() => signOut()}>
+          <button className='p-2 border m-5 hover:bg-gray-100' onClick={signOutFirebase}>
             Cerrar sesion
           </button>
         </div>

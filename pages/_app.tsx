@@ -1,17 +1,15 @@
-import { SessionProvider } from 'next-auth/react'
+import initAuth from '../initAuth' // the module you created above
 import ModalProvider from '../provider/ModalProvider'
 import type { AppProps } from 'next/app'
 import '../styles/globals.css'
 
+initAuth()
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <div>
-      <SessionProvider session={pageProps.session} refetchInterval={0}>
-        <ModalProvider>
-          <Component {...pageProps} />
-        </ModalProvider>
-      </SessionProvider>
-    </div>
+    <ModalProvider>
+      <Component {...pageProps} />
+    </ModalProvider>
   )
 }
 
