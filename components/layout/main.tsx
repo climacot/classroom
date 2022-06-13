@@ -23,7 +23,8 @@ export default function MainContainer({ children, owner }: ComponentProps) {
     createCourse(
       {
         name,
-        owner
+        owner,
+        id: ''
       },
       handleModalCreate
     )
