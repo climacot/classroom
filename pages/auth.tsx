@@ -4,7 +4,7 @@ import { signInWithPopupFirebase } from '../firebase/auth'
 const RedirectPage = () => {
   return (
     <div>
-      <button onClick={signInWithPopupFirebase}>Iniciar con google</button>
+      <button onClick={signInWithPopupFirebase}>Iniciar con googlee</button>
     </div>
   )
 }
