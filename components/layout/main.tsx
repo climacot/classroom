@@ -24,7 +24,8 @@ export default function MainContainer({ children, owner }: ComponentProps) {
       {
         name,
         owner,
-        id: ''
+        id: '',
+        timestamp: Date.now()
       },
       handleModalCreate
     )
