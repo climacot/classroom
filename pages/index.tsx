@@ -1,25 +1,22 @@
-import { AuthAction, getFirebaseAdmin, withAuthUser, withAuthUserTokenSSR } from 'next-firebase-auth'
-import { getCourses, Icourse } from '../firebase/courses'
+import { AuthAction, withAuthUser, withAuthUserTokenSSR } from 'next-firebase-auth'
+import { FC } from 'react'
+import { getCourses } from '../firebase/courses'
+import { Icourse, Iuser } from 'models/user'
 import Google from '../components/logos/google'
 import Head from 'next/head'
 import Header from '../components/header/header'
 import Link from 'next/link'
+import LoaderHeader from '../components/Loaders/LoaderHeader'
 import MainContainer from '../components/layout/main'
 import Menu from '../components/buttons/menu'
 import SignOutButtonGoogle from '../components/buttons/signOut'
-import { FC } from 'react'
-import { signInWithCustomToken } from 'firebase/auth'
-import { auth } from '../firebase'
 
 type ComponentProps = {
-  image: string
-  name: string
-  email: string
-  owner: string
+  user: Iuser
   courses: Icourse[]
 }
 
-const Home: FC<ComponentProps> = ({ image, email, name, owner, courses }) => {
+const Home: FC<ComponentProps> = ({ user, courses }) => {
   return (
     <div>
       <Head>
@@ -31,21 +28,21 @@ const Home: FC<ComponentProps> = ({ image, email, name, owner, courses }) => {
           <div className='flex flex-wrap items-center justify-between w-full border-b'>
             <Link href={'/'}>
               <a className='h-16 flex items-center justify-center flex-wrap ml-4 min-h-0 select-none'>
-                <div className='w-20'>
+                <div className='w-16'>
                   <Google />
                 </div>
-                <p className='text-2xl ml-2 text-gray-500 mb-2'>Classroom</p>
+                <p className='text-xl ml-2 text-gray-500 mb-1'>Classroom</p>
               </a>
             </Link>
             <div className='flex'>
               <Menu />
               <div className='hidden sm:flex items-center mr-5'>
-                <SignOutButtonGoogle image={image} name={name} email={email} />
+                <SignOutButtonGoogle image={user.photoURL} name={user.displayName} email={user.email} />
               </div>
             </div>
           </div>
         </Header>
-        <MainContainer owner={owner}>
+        <MainContainer owner={user.id}>
           <section className='flex flex-wrap gap-6 p-5'>
             {courses.map(c => (
               <div
@@ -76,24 +73,25 @@ const Home: FC<ComponentProps> = ({ image, email, name, owner, courses }) => {
 export const getServerSideProps = withAuthUserTokenSSR({
   whenUnauthed: AuthAction.REDIRECT_TO_LOGIN
 })(async ({ AuthUser }) => {
-  const uid = AuthUser.id
+  const { displayName, email, photoURL, id } = AuthUser
 
-  const admin = getFirebaseAdmin()
-  const token = await admin.auth().createCustomToken(uid)
-  signInWithCustomToken(auth, token)
-  const courses = await getCourses({ uid })
+  const courses = await getCourses(id)
 
   return {
     props: {
-      image: AuthUser.photoURL,
-      name: AuthUser.displayName,
-      email: AuthUser.email,
-      owner: AuthUser.id,
+      user: {
+        displayName,
+        email,
+        photoURL,
+        id
+      },
       courses
     }
   }
 })
 
 export default withAuthUser<ComponentProps>({
-  whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN
+  whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN,
+  whenUnauthedBeforeInit: AuthAction.SHOW_LOADER,
+  LoaderComponent: LoaderHeader
 })(Home)
