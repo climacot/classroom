@@ -1,15 +1,6 @@
 import { collection, addDoc, query, where, getDocs } from 'firebase/firestore'
 import { db } from '../firebase'
-
-export interface Icourse {
-  name: string
-  owner: string
-  id: string
-}
-
-interface IuserPermission {
-  uid?: string
-}
+import { Icourse } from 'models/user'
 
 export const createCourse = async (course: Icourse, callback: () => void) => {
   const { name, owner } = course
@@ -27,21 +18,23 @@ export const createCourse = async (course: Icourse, callback: () => void) => {
   }
 }
 
-export const getCourses = async (permission: IuserPermission) => {
-  const { uid } = permission
-  const q = query(collection(db, 'courses'), where('owner', '==', uid))
+export const getCourses = async (id: unknown) => {
+  const q = query(collection(db, 'courses'), where('owner', '==', id))
   const querySnapshot = await getDocs(q)
   const arr: Icourse[] = []
+
   querySnapshot.forEach(doc => {
     const objetos: Icourse = JSON.parse(JSON.stringify(doc.data()))
 
     const prev = {
       id: doc.id,
       name: objetos.name,
-      owner: objetos.owner
+      owner: objetos.owner,
+      timestamp: objetos.timestamp
     }
 
     arr.push(prev)
   })
+
   return arr
 }
