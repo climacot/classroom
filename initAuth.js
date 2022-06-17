@@ -2,7 +2,7 @@ import { init } from 'next-firebase-auth'
 
 const initAuth = () => {
   init({
-    authPageURL: '/auth',
+    authPageURL: '/info',
     appPageURL: '/',
     loginAPIEndpoint: '/api/login', // required
     logoutAPIEndpoint: '/api/logout', // required
@@ -24,12 +24,12 @@ const initAuth = () => {
     // Use application default credentials (takes precedence over firebaseAdminInitConfig if set)
     // useFirebaseAdminDefaultCredential: true,
     firebaseClientInitConfig: {
-      apiKey: 'AIzaSyA19uPmw4qNLbnIHip6S8GP8MuSdZ_7RNE',
-      authDomain: 'classroom-92481.firebaseapp.com',
-      projectId: 'classroom-92481',
-      storageBucket: 'classroom-92481.appspot.com',
-      messagingSenderId: '517594804284',
-      appId: '1:517594804284:web:2a5929a10e6ea24b62d339'
+      apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+      authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+      projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJUCT_ID,
+      storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+      messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGIN_SENDER_ID,
+      appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
     },
     cookies: {
       name: 'ClassroomApp', // required
