@@ -8,7 +8,7 @@ import Link from 'next/link'
 import LinkGoogle from '../components/buttons/google'
 import Nav from '../components/header/nav'
 
-const Info = () => {
+const InfoPage = () => {
   return (
     <div>
       <Head>
@@ -26,10 +26,10 @@ const Info = () => {
           <div className='flex flex-wrap items-center justify-between w-full'>
             <Link href={'/'}>
               <a className='h-16 flex items-center justify-center flex-wrap ml-4 min-h-0'>
-                <div className='w-20'>
+                <div className='w-16'>
                   <Google />
                 </div>
-                <p className='text-2xl ml-2 text-gray-500 mb-2'>for Education</p>
+                <p className='text-xl ml-2 text-gray-500 mb-1'>for Education</p>
               </a>
             </Link>
             <div className='grow justify-start ml-0 lg:ml-10'>
@@ -40,10 +40,12 @@ const Info = () => {
             </div>
           </div>
         </Header>
-        <section className='container mx-auto 2xl:px-28 px-4'>
+        <main className='container mx-auto 2xl:px-28 px-4 mb-10'>
           <div className='sm:grid sm:grid-cols-2 flex flex-col-reverse'>
-            <div className='pt-11 lg:pt-36 lg:px-20'>
-              <Image src={classroom} alt='logo de classroom' />
+            <section className='pt-11 lg:pt-36 lg:px-20'>
+              <div>
+                <Image src={classroom} alt='logo de classroom' />
+              </div>
               <h1 className='text-4xl sm:text-5xl md:text-5xl 2xl:text-6xl font-semibold'>
                 Productos que potencian la educación
               </h1>
@@ -65,15 +67,15 @@ const Info = () => {
                   </a>
                 </Link>
               </div>
-            </div>
-            <div className='flex justify-center w-full px-4'>
+            </section>
+            <section className='flex justify-center w-full px-4'>
               <InitialVideo />
-            </div>
+            </section>
           </div>
-        </section>
+        </main>
       </div>
     </div>
   )
 }
 
-export default Info
+export default InfoPage
