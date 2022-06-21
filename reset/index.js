@@ -1,7 +1,5 @@
 import { AuthAction, withAuthUser, withAuthUserTokenSSR } from 'next-firebase-auth'
-import { FC } from 'react'
 import { getCourses } from '../firebase/courses'
-import { Icourse, Iuser } from 'models/user'
 import Google from '../components/logos/google'
 import Head from 'next/head'
 import Header from '../components/header/header'
@@ -11,12 +9,7 @@ import MainContainer from '../components/layout/main'
 import Menu from '../components/buttons/menu'
 import SignOutButtonGoogle from '../components/buttons/signOut'
 
-type ComponentProps = {
-  user: Iuser
-  courses: Icourse[]
-}
-
-const Home: FC<ComponentProps> = ({ user, courses }) => {
+const Home = ({ user, courses }) => {
   return (
     <div>
       <Head>
@@ -70,27 +63,27 @@ const Home: FC<ComponentProps> = ({ user, courses }) => {
   )
 }
 
-export const getServerSideProps = withAuthUserTokenSSR({
-  whenUnauthed: AuthAction.REDIRECT_TO_LOGIN
-})(async ({ AuthUser }) => {
-  const { displayName, email, photoURL, id } = AuthUser
+export const getServerSideProps = withAuthUserTokenSSR({ whenUnauthed: AuthAction.REDIRECT_TO_LOGIN })(
+  async ({ AuthUser }) => {
+    const { displayName, email, photoURL, id } = AuthUser
 
-  const courses = await getCourses(id)
+    const courses = await getCourses(id)
 
-  return {
-    props: {
-      user: {
-        displayName,
-        email,
-        photoURL,
-        id
-      },
-      courses
+    return {
+      props: {
+        user: {
+          displayName,
+          email,
+          photoURL,
+          id
+        },
+        courses
+      }
     }
   }
-})
+)
 
-export default withAuthUser<ComponentProps>({
+export default withAuthUser({
   whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN,
   whenUnauthedBeforeInit: AuthAction.SHOW_LOADER,
   LoaderComponent: LoaderHeader
