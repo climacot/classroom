@@ -1,4 +1,4 @@
-import initAuth from '../initAuth' // the module you created above
+import initAuth from '../next-firebase-auth/initAuth' // the module you created above
 import '../styles/global.css'
 
 initAuth()
