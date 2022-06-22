@@ -11,7 +11,6 @@ export default function Course({ name }) {
           </div>
         </a>
       </div>
-      <div></div>
       <div className="h-14 border-t"></div>
     </div>
   )

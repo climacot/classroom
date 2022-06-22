@@ -5,13 +5,13 @@ import LayoutMain from '../components/layout'
 const IndexPage = ({ courses }) => {
   return (
     <LayoutMain>
-      <section className="flex flex-wrap gap-6 p-5">
+      <ol className="flex flex-wrap gap-6 p-5">
         {courses.map(c => (
-          <div key={c.id}>
-            <Course {...c} />
-          </div>
+          <li key={c.id}>
+            <Course key={c.id} {...c} />
+          </li>
         ))}
-      </section>
+      </ol>
     </LayoutMain>
   )
 }
