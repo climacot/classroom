@@ -1,12 +1,21 @@
+import { createCourse } from '../../services/course'
+import { useAuthUser } from 'next-firebase-auth'
 import { useState } from 'react'
 import useModal from '../../hooks/useModal'
+import { useRouter } from 'next/router'
 
 export default function FormCreateCurse() {
-  const { handleModalCreate } = useModal()
   const [name, setName] = useState('')
+  const { handleModalCreate } = useModal()
+  const { id } = useAuthUser()
+  const location = useRouter()
 
   const handleCreate = () => {
     setName('')
+    createCourse({ name, owner: id }, () => {
+      handleModalCreate()
+      location.push(`/${id}`)
+    })
   }
 
   return (

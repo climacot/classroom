@@ -4,9 +4,9 @@ import useModal from '../hooks/useModal'
 import PlusSvg from './svg/plus'
 
 export default function CoursesMenu() {
-  const { id } = useAuthUser()
   const [open, setOpen] = useState(false)
   const { handleModalInfo } = useModal()
+  const { id } = useAuthUser()
 
   const handleClick = () => setOpen(!open)
 
