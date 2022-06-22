@@ -1,4 +1,3 @@
-import LayoutModals from '../components/layout/modals'
 import initAuth from '../next-firebase-auth/initAuth' // the module you created above
 import ModalProvider from '../provider/ModalProvider'
 import '../styles/global.css'

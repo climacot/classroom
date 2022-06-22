@@ -4,17 +4,15 @@ import LayoutMain from '../components/layout'
 
 const IndexPage = ({ courses }) => {
   return (
-    <div>
-      <LayoutMain>
-        <section className="flex flex-wrap gap-6 p-5">
-          {courses.map(c => (
-            <div key={c.id}>
-              <Course {...c} />
-            </div>
-          ))}
-        </section>
-      </LayoutMain>
-    </div>
+    <LayoutMain>
+      <section className="flex flex-wrap gap-6 p-5">
+        {courses.map(c => (
+          <div key={c.id}>
+            <Course {...c} />
+          </div>
+        ))}
+      </section>
+    </LayoutMain>
   )
 }
 

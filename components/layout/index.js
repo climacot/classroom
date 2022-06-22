@@ -1,12 +1,12 @@
 import Header from '../header'
-import LayoutModals from './modals'
+import Modals from '../modals'
 
 export default function LayoutMain({ children }) {
   return (
     <>
       <Header />
       <main>{children}</main>
-      <LayoutModals />
+      <Modals />
     </>
   )
 }
