@@ -15,8 +15,6 @@ module.exports = {
   rules: {
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',
-    prettier: {
-      'space-before-function-paren': ['error', 'never']
-    }
+    'space-before-function-paren': 'off'
   }
 }

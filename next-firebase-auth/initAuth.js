@@ -1,4 +1,20 @@
 import { init } from 'next-firebase-auth'
+import { getApps, initializeApp } from 'firebase/app'
+
+const firebaseClientInitConfig = {
+  apiKey: 'AIzaSyA19uPmw4qNLbnIHip6S8GP8MuSdZ_7RNE',
+  authDomain: 'classroom-92481.firebaseapp.com',
+  projectId: 'classroom-92481',
+  storageBucket: 'classroom-92481.appspot.com',
+  messagingSenderId: '517594804284',
+  appId: '1:517594804284:web:2a5929a10e6ea24b62d339'
+}
+
+const apps = getApps()
+
+if (apps.length === 0) {
+  initializeApp(firebaseClientInitConfig)
+}
 
 const initAuth = () => {
   init({
@@ -24,14 +40,7 @@ const initAuth = () => {
     },
     // Use application default credentials (takes precedence over firebaseAdminInitConfig if set)
     // useFirebaseAdminDefaultCredential: true,
-    firebaseClientInitConfig: {
-      apiKey: 'AIzaSyA19uPmw4qNLbnIHip6S8GP8MuSdZ_7RNE',
-      authDomain: 'classroom-92481.firebaseapp.com',
-      projectId: 'classroom-92481',
-      storageBucket: 'classroom-92481.appspot.com',
-      messagingSenderId: '517594804284',
-      appId: '1:517594804284:web:2a5929a10e6ea24b62d339'
-    },
+    firebaseClientInitConfig,
     cookies: {
       name: 'ClassroomApp', // required
       // Keys are required unless you set `signed` to `false`.
